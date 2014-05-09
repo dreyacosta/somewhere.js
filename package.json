@@ -1,0 +1,25 @@
+{
+  "name": "somewhere",
+  "version": "0.0.1",
+  "description": "Small JSON file database",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "keywords": [
+    "database",
+    "JSON",
+    "file",
+    "functional"
+  ],
+  "author": "@dreyacosta",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "grunt": "^0.4.4",
+    "grunt-mocha-test": "^0.10.2"
+  },
+  "dependencies": {
+    "coffee-script": "^1.7.1"
+  }
+}
