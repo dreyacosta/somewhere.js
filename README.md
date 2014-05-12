@@ -123,7 +123,7 @@ db.remove('movies', '0ab7d8a8-ab46-35cd-ccd4-81ccfe81c3f1');
 ### Clear database
 ```js
 db.clear()
-``
+```
 
 ## License
 This software is free to use under the MIT license.
