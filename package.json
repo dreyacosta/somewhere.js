@@ -12,6 +12,10 @@
     "file",
     "functional"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com:dreyacosta/somewhere.js.git"
+  },
   "author": "@dreyacosta",
   "license": "MIT",
   "devDependencies": {
