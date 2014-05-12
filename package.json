@@ -1,6 +1,6 @@
 {
   "name": "somewhere",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Small JSON file database",
   "main": "index.js",
   "scripts": {
