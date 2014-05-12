@@ -1,10 +1,10 @@
 {
   "name": "somewhere",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Small JSON file database",
   "main": "index.js",
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test --verbose"
   },
   "keywords": [
     "database",
