@@ -6,9 +6,12 @@ databasePath = ''
 database = {}
 
 _uuid = () ->
-  s4 = ->
-    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
-  return "#{s4()}#{s4()}-#{s4()}-#{s4()}-#{s4()}-#{s4()}#{s4()}#{s4()}"
+  date = new Date().getTime()
+  uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace /[xy]/g, (c) ->
+    r = (date + Math.random() * 16) % 16 | 0
+    date = Math.floor date/16
+    v = if c is 'x' then r else r & 7 | 8
+    v.toString 16
 
 _checkCollection = (collection) ->
   return if database[collection]
