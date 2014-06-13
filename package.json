@@ -1,7 +1,7 @@
 {
   "name": "somewhere",
-  "version": "0.1.1",
-  "description": "Small JSON file database",
+  "version": "0.1.2",
+  "description": "Small JSON file database for Node.js",
   "main": "index.js",
   "scripts": {
     "test": "grunt test --verbose"
