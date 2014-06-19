@@ -5,7 +5,7 @@ fs = require 'fs'
 databasePath = ''
 database = {}
 
-_uuid = () ->
+_uuid = ->
   date = new Date().getTime()
   uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace /[xy]/g, (c) ->
     r = (date + Math.random() * 16) % 16 | 0
