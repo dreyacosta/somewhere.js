@@ -12,6 +12,7 @@ describe "JSONdb module", ->
       username: 'dreyacosta'
       name: 'David'
       blog: 'dreyacosta.com'
+      source: 'twitter'
     item = db.save 'users', user
     expect(item.username).to.equal 'dreyacosta'
 
@@ -24,9 +25,38 @@ describe "JSONdb module", ->
       username: 'drey'
       name: 'David'
       blog: 'drey.com'
+      source: 'twitter'
     item = db.save 'users', user
     items = db.find 'users', { name: 'David' }
     expect(items.length).to.equal 2
+
+  it "should return a pure object when find one", ->
+    item = db.findOne 'users', { username: 'dreyacosta' }
+    expect(item.name).to.equal 'David'
+    item.name = 'Mike'
+    item = db.findOne 'users', { username: 'dreyacosta' }
+    expect(item.name).to.equal 'David'
+
+  it "should return a pure array when find all", ->
+    user =
+      username: 'pirish'
+      name: 'Paul'
+      blog: 'pirish.com'
+      source: 'twitter'
+    item = db.save 'users', user
+    items = db.find 'users', { source: 'twitter' }
+    expect(items.length).to.equal 3
+    items[0].source = 'facebook'
+    items = db.find 'users', { source: 'twitter' }
+    expect(items.length).to.equal 3
+
+  it "should return a pure object when update", ->
+    item = db.findOne 'users', { username: 'dreyacosta' }
+    item = db.update 'users', item.id, { name: 'David Rey' }
+    expect(item.name).to.equal 'David Rey'
+    item.name = 'Mike'
+    item = db.findOne 'users', { username: 'dreyacosta' }
+    expect(item.name).to.equal 'David Rey'
 
   it "should update item", ->
     data =
@@ -38,10 +68,11 @@ describe "JSONdb module", ->
   it "should remove item from a collection", ->
     item = db.findOne 'users', { username: 'drey' }
     expect(item.username).to.equal 'drey'
-
-    db.remove 'users', item.id
+    result = db.remove 'users', item.id
+    expect(result).to.equal true
     item = db.findOne 'users', { id: item.id }
-    expect(item).to.equal undefined
+    expect(typeof item).to.equal 'object'
+    expect(Object.keys(item).length).to.equal 0
 
   it "should clear the database file", ->
     db.clear()
