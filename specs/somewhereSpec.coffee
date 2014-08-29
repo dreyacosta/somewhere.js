@@ -30,6 +30,16 @@ describe "JSONdb module", ->
     items = db.find 'users', { name: 'David' }
     expect(items.length).to.equal 2
 
+  it "should return an empty object if no match on find one", ->
+    item = db.findOne 'users', { name: 'Paul' }
+    expect(typeof item).to.equal 'object'
+    expect(Object.keys(item).length).to.equal 0
+
+  it "should return an empty array if no match on find all", ->
+    items = db.find 'users', { name: 'Paul' }
+    expect(items.push).to.be.a 'function'
+    expect(items.length).to.equal 0
+
   it "should return a pure object when find one", ->
     item = db.findOne 'users', { username: 'dreyacosta' }
     expect(item.name).to.equal 'David'
