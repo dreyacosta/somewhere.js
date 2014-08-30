@@ -5,31 +5,6 @@ fs = require 'fs'
 databasePath = ''
 database = {}
 
-_uuid = ->
-  date = new Date().getTime()
-  uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace /[xy]/g, (c) ->
-    r = (date + Math.random() * 16) % 16 | 0
-    date = Math.floor date/16
-    v = if c is 'x' then r else r & 7 | 8
-    v.toString 16
-
-_checkCollection = (collection) ->
-  return if database[collection]
-  database[collection] = []
-
-_filter = (obj, predicate) ->
-  result = []
-  result.push(item) for item in obj when predicate item
-  result
-
-_filterOne = (obj, predicate) ->
-  return item for item in obj when predicate item
-
-_matches = (attrs) ->
-  (obj) ->
-    return false for key, val of attrs when attrs[key] isnt obj[key]
-    true
-
 module.exports =
   connect: (path) ->
     databasePath = path
@@ -67,3 +42,30 @@ module.exports =
     index = database[collection].indexOf(item) for item in database[collection] when item.id is id
     database[collection].splice index, 1 if index > -1
     do @write
+
+
+# -- Private methods -----------------------------------------------------------
+_uuid = ->
+  date = new Date().getTime()
+  uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace /[xy]/g, (c) ->
+    r = (date + Math.random() * 16) % 16 | 0
+    date = Math.floor date/16
+    v = if c is 'x' then r else r & 7 | 8
+    v.toString 16
+
+_checkCollection = (collection) ->
+  return if database[collection]
+  database[collection] = []
+
+_filter = (obj, predicate) ->
+  result = []
+  result.push(item) for item in obj when predicate item
+  result
+
+_filterOne = (obj, predicate) ->
+  return item for item in obj when predicate item
+
+_matches = (attrs) ->
+  (obj) ->
+    return false for key, val of attrs when attrs[key] isnt obj[key]
+    true
