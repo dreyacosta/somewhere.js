@@ -1,5 +1,5 @@
 # somewhere.js [![Build Status](https://travis-ci.org/dreyacosta/somewhere.js.svg?branch=master)](https://travis-ci.org/dreyacosta/somewhere.js)
-Small JSON file database for Node.js
+Small in-memory database for Node.js that persists on disk
 
 ## Installation
 ```sh
