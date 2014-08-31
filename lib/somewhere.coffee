@@ -23,9 +23,10 @@ module.exports =
     data.id = do _uuid
     database[collection].push data
     do @write
-    data
+    _extend {}, data
 
   findOne: (collection, attrs) ->
+    return {} if !attrs
     _filterOne database[collection], _matches attrs
 
   find: (collection, attrs) ->
@@ -36,13 +37,13 @@ module.exports =
     data = item for item in database[collection] when item.id is id
     data[key] = val for key, val of attrs
     do @write
-    data
+    _extend {}, data
 
   remove: (collection, id) ->
     index = database[collection].indexOf(item) for item in database[collection] when item.id is id
     database[collection].splice index, 1 if index > -1
     do @write
-
+    true
 
 # -- Private methods -----------------------------------------------------------
 _uuid = ->
@@ -59,13 +60,21 @@ _checkCollection = (collection) ->
 
 _filter = (obj, predicate) ->
   result = []
-  result.push(item) for item in obj when predicate item
+  result.push _extend({}, item) for item in obj when predicate item
   result
 
 _filterOne = (obj, predicate) ->
-  return item for item in obj when predicate item
+  result = {}
+  return _extend result, item for item in obj when predicate item
+  result
 
 _matches = (attrs) ->
   (obj) ->
     return false for key, val of attrs when attrs[key] isnt obj[key]
     true
+
+_extend = (obj) ->
+  args = Array::slice.call(arguments, 1)
+  args.forEach (source) ->
+    obj[method] = source[method] for method of source when hasOwnProperty.call source, method
+  obj
