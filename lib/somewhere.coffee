@@ -73,8 +73,7 @@ _matches = (attrs) ->
     return false for key, val of attrs when attrs[key] isnt obj[key]
     true
 
-_extend = (obj) ->
-  args = Array::slice.call(arguments, 1)
+_extend = (obj, args...) ->
   args.forEach (source) ->
     obj[method] = source[method] for method of source when hasOwnProperty.call source, method
   obj
