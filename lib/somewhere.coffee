@@ -10,13 +10,12 @@ module.exports =
     databasePath = path
     if fs.existsSync databasePath
       database = JSON.parse fs.readFileSync(databasePath, 'utf-8')
-    do @write
 
   clear: ->
-    fs.unlinkSync databasePath
+    fs.unlinkSync databasePath if databasePath
 
   write: ->
-    fs.writeFileSync databasePath, JSON.stringify database
+    fs.writeFileSync databasePath, JSON.stringify database if databasePath
 
   save: (collection, data) ->
     _checkCollection collection
