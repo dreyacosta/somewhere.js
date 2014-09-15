@@ -6,9 +6,8 @@ databasePath = ''
 database = {}
 
 module.exports =
-  connect: (path) ->
-    databasePath = path
-    if fs.existsSync databasePath
+  connect: (databasePath) ->
+    if databasePath and fs.existsSync databasePath
       database = JSON.parse fs.readFileSync(databasePath, 'utf-8')
 
   clear: ->
