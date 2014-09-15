@@ -13,7 +13,7 @@ $ npm install somewhere
 var db = require('somewhere');
 ```
 
-### Database connection
+### Database connection (if not provided will only work on memory)
 ```js
 db.connect('path/to/file.json');
 ```
