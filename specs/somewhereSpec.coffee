@@ -4,6 +4,40 @@ expect = require('chai').expect
 DB = require '../index'
 
 describe "JSONdb module", ->
+  describe "Persistence and memory tests", ->
+    it "should set new database path", ->
+      db = new DB './database.json'
+      expect(db.databasePath).to.equal './database.json'
+
+    it "should write first record on memory and persists on file", ->
+      db = new DB './database.json'
+      fruit =
+        name: 'Apple'
+        color: 'Green'
+      db.save 'fruits', fruit
+      expect(db.database.fruits.length).to.equal 1
+      db = new DB './database.json'
+      expect(db.database.fruits.length).to.equal 1
+
+    it "should clear file database", ->
+      db = new DB './database.json'
+      results = db.find 'fruits'
+      expect(results.length).to.equal 1
+      do db.clear
+      results = db.find 'fruits'
+      expect(results.length).to.equal 0
+
+    it "should only work on memory if path not provide", ->
+      db = new DB()
+      fruit =
+        name: 'Apple'
+        color: 'Green'
+      db.save 'fruits', fruit
+      expect(db.database.fruits.length).to.equal 1
+      db = new DB()
+      results = db.find 'fruits'
+      expect(results.length).to.equal 0
+
   describe "Check findOne, find, update and remove methods", ->
     db = new DB './mochaTest.json'
     user =
