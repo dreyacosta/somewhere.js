@@ -9,7 +9,7 @@ class Somewhere
     do @connect if @databasePath
 
   connect: ->
-    if @databasePath and fs.existsSync @databasePath
+    if fs.existsSync @databasePath
       @database = JSON.parse fs.readFileSync @databasePath, 'utf-8'
 
   clear: ->
