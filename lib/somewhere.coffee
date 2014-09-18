@@ -26,20 +26,24 @@ class Somewhere
     _extend {}, data
 
   findOne: (collection, attrs) ->
+    _checkCollection @database, collection
     return {} if !attrs
     _filterOne @database[collection], _matches attrs
 
   find: (collection, attrs) ->
+    _checkCollection @database, collection
     return @database[collection] if !attrs
     _filter @database[collection], _matches attrs
 
   update: (collection, id, attrs) ->
+    _checkCollection @database, collection
     data = item for item in @database[collection] when item.id is id
     data[key] = val for key, val of attrs
     do @write
     _extend {}, data
 
   remove: (collection, id) ->
+    _checkCollection @database, collection
     index = @database[collection].indexOf(item) for item in @database[collection] when item.id is id
     @database[collection].splice index, 1 if index > -1
     do @write
@@ -78,4 +82,4 @@ _extend = (obj, args...) ->
     obj[method] = source[method] for method of source when hasOwnProperty.call source, method
   obj
 
-  module.exports = Somewhere
+module.exports = Somewhere
