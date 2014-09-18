@@ -2,44 +2,46 @@
 
 fs = require 'fs'
 
-databasePath = ''
-database = {}
-
 class Somewhere
-  connect: (databasePath) ->
-    if databasePath and fs.existsSync databasePath
-      database = JSON.parse fs.readFileSync(databasePath, 'utf-8')
+  constructor: (databasePath) ->
+    @databasePath = databasePath
+    @database     = {}
+    do @connect if @databasePath
+
+  connect: ->
+    if @databasePath and fs.existsSync @databasePath
+      @database = JSON.parse fs.readFileSync @databasePath, 'utf-8'
 
   clear: ->
-    fs.unlinkSync databasePath if databasePath
+    fs.unlinkSync @databasePath if @databasePath
 
   write: ->
-    fs.writeFileSync databasePath, JSON.stringify database if databasePath
+    fs.writeFileSync @databasePath, JSON.stringify @database if @databasePath
 
   save: (collection, data) ->
     _checkCollection collection
     data.id = do _uuid
-    database[collection].push data
+    @database[collection].push data
     do @write
     _extend {}, data
 
   findOne: (collection, attrs) ->
     return {} if !attrs
-    _filterOne database[collection], _matches attrs
+    _filterOne @database[collection], _matches attrs
 
   find: (collection, attrs) ->
-    return database[collection] if !attrs
-    _filter database[collection], _matches attrs
+    return @database[collection] if !attrs
+    _filter @database[collection], _matches attrs
 
   update: (collection, id, attrs) ->
-    data = item for item in database[collection] when item.id is id
+    data = item for item in @database[collection] when item.id is id
     data[key] = val for key, val of attrs
     do @write
     _extend {}, data
 
   remove: (collection, id) ->
-    index = database[collection].indexOf(item) for item in database[collection] when item.id is id
-    database[collection].splice index, 1 if index > -1
+    index = @database[collection].indexOf(item) for item in @database[collection] when item.id is id
+    @database[collection].splice index, 1 if index > -1
     do @write
     true
 
