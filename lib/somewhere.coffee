@@ -5,7 +5,7 @@ fs = require 'fs'
 databasePath = ''
 database = {}
 
-module.exports =
+class Somewhere
   connect: (databasePath) ->
     if databasePath and fs.existsSync databasePath
       database = JSON.parse fs.readFileSync(databasePath, 'utf-8')
@@ -75,3 +75,5 @@ _extend = (obj, args...) ->
   args.forEach (source) ->
     obj[method] = source[method] for method of source when hasOwnProperty.call source, method
   obj
+
+  module.exports = Somewhere
