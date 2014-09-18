@@ -19,7 +19,7 @@ class Somewhere
     fs.writeFileSync @databasePath, JSON.stringify @database if @databasePath
 
   save: (collection, data) ->
-    _checkCollection collection
+    _checkCollection @database, collection
     data.id = do _uuid
     @database[collection].push data
     do @write
@@ -54,7 +54,7 @@ _uuid = ->
     v = if c is 'x' then r else r & 7 | 8
     v.toString 16
 
-_checkCollection = (collection) ->
+_checkCollection = (database, collection) ->
   return if database[collection]
   database[collection] = []
 
