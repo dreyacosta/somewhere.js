@@ -47,6 +47,8 @@ describe "JSONdb module", ->
       source: 'twitter'
     item = db.save 'users', user
 
+    it "should create empty collection if not exist (save, findOne, find, update, remove)", ->
+
     it "should find one", ->
       item = db.findOne 'users', username: 'dreyacosta'
       expect(item.name).to.equal 'David'
@@ -106,6 +108,8 @@ describe "JSONdb module", ->
       item = db.update 'users', item.id, data
       expect(item.country).to.equal 'Spain'
 
+    it "should not update an item that not exist", ->
+
     it "should remove item from a collection", ->
       item = db.findOne 'users', username: 'drey'
       expect(item.username).to.equal 'drey'
@@ -114,6 +118,8 @@ describe "JSONdb module", ->
       item = db.findOne 'users', id: item.id
       expect(typeof item).to.equal 'object'
       expect(Object.keys(item).length).to.equal 0
+
+    it "should not remove an item that not exist", ->
 
     it "should clear the database file", ->
       do db.clear
