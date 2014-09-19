@@ -14,6 +14,7 @@ class Somewhere
 
   clear: ->
     fs.unlinkSync @databasePath if @databasePath
+    @database = {}
 
   write: ->
     fs.writeFileSync @databasePath, JSON.stringify @database if @databasePath
