@@ -38,6 +38,29 @@ describe "JSONdb module", ->
       results = db.find 'fruits'
       expect(results.length).to.equal 0
 
+  describe "findOne, find, update, remove, save if collection not exist", ->
+    db = new DB()
+
+    it "should return empty collection on findOne", ->
+      item = db.findOne 'computers', brand: 'Apple'
+      expect(db.database.computers.length).to.equal 0
+
+    it "should return empty collection on find", ->
+      item = db.find 'cars', brand: 'Ferrari'
+      expect(db.database.cars.length).to.equal 0
+
+    it "should return empty collection on update", ->
+      item = db.update 'ebooks', brand: 'Kindle'
+      expect(db.database.ebooks.length).to.equal 0
+
+    it "should return empty collection on remove", ->
+      item = db.remove 'electronic', brand: 'Philips'
+      expect(db.database.electronic.length).to.equal 0
+
+    it "should return a new collection with 1 element on save", ->
+      item = db.save 'books', title: 'Testable JavaScript'
+      expect(db.database.books.length).to.equal 1
+
   describe "Check findOne, find, update and remove methods", ->
     db = new DB './mochaTest.json'
     user =
@@ -46,8 +69,6 @@ describe "JSONdb module", ->
       blog: 'dreyacosta.com'
       source: 'twitter'
     item = db.save 'users', user
-
-    it "should create empty collection if not exist (save, findOne, find, update, remove)", ->
 
     it "should find one", ->
       item = db.findOne 'users', username: 'dreyacosta'
