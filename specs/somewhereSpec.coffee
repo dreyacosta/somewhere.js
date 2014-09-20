@@ -129,7 +129,10 @@ describe "JSONdb module", ->
       item = db.update 'users', item.id, data
       expect(item.country).to.equal 'Spain'
 
-    it "should not update an item that not exist", ->
+    it "should not update an item that not exist and return empty object", ->
+      item = db.update 'users', '12345', name: 'Brad'
+      expect(typeof item).to.equal 'object'
+      expect(Object.keys(item).length).to.equal 0
 
     it "should remove item from a collection", ->
       item = db.findOne 'users', username: 'drey'
