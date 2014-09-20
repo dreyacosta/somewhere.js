@@ -144,6 +144,8 @@ describe "JSONdb module", ->
       expect(Object.keys(item).length).to.equal 0
 
     it "should not remove an item that not exist", ->
+      item = db.remove 'users', '12345'
+      expect(item).to.equal false
 
     it "should clear the database file", ->
       do db.clear
