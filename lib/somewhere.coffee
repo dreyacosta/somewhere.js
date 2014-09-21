@@ -39,13 +39,14 @@ class Somewhere
   update: (collection, id, attrs) ->
     _checkCollection @database, collection
     data = item for item in @database[collection] when item.id is id
-    data[key] = val for key, val of attrs
+    data[key] = val for key, val of attrs if data
     do @write
     _extend {}, data
 
   remove: (collection, id) ->
     _checkCollection @database, collection
     index = @database[collection].indexOf(item) for item in @database[collection] when item.id is id
+    return false unless index
     @database[collection].splice index, 1 if index > -1
     do @write
     true
