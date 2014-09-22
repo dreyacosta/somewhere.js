@@ -10,13 +10,18 @@ $ npm install somewhere
 
 ### Load
 ```js
-var db = require('somewhere');
+var Database = require('somewhere');
+```
+
+### Create database
+```js
+var onlyMemoryDb = new Database();
+var memoryDiskDb = new Database('./database.json');
 ```
 
 ### Database connection
-Not necessary if you only want to work on memory
 ```js
-db.connect('path/to/file.json');
+var db = new Database('./database.json');
 ```
 
 ### Save
