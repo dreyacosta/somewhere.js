@@ -4,7 +4,7 @@
   "description": "Small in-memory database for Node.js that persists on disk",
   "main": "index.js",
   "scripts": {
-    "test": "grunt test --verbose"
+    "test": "gulp test"
   },
   "keywords": [
     "database",
