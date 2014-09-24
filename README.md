@@ -124,6 +124,9 @@ db.remove('movies', id);
 
 ```js
 db.remove('movies', '0ab7d8a8-ab46-35cd-ccd4-81ccfe81c3f1');
+/** Result: Boolean
+  true
+*/
 ```
 
 ### Clear database
