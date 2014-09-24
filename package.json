@@ -1,6 +1,6 @@
 {
   "name": "somewhere",
-  "version": "0.2.2",
+  "version": "1.0.0",
   "description": "Small in-memory database for Node.js that persists on disk",
   "main": "index.js",
   "scripts": {
