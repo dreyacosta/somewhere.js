@@ -46,7 +46,7 @@ class Somewhere
   remove: (collection, id) ->
     _checkCollection @database, collection
     index = @database[collection].indexOf(item) for item in @database[collection] when item.id is id
-    return false unless index
+    return false if not index and index isnt 0
     @database[collection].splice index, 1 if index > -1
     do @write
     true
