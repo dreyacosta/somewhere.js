@@ -143,6 +143,11 @@ describe "JSONdb module", ->
       expect(typeof item).to.equal 'object'
       expect(Object.keys(item).length).to.equal 0
 
+    it "should remove first item from a collection", ->
+      item = db.database.users[0]
+      result = db.remove 'users', item.id
+      expect(result).to.equal true
+
     it "should not remove an item that not exist", ->
       item = db.remove 'users', '12345'
       expect(item).to.equal false
