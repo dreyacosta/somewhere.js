@@ -61,6 +61,10 @@ describe "JSONdb module", ->
       item = db.save 'books', title: 'Testable JavaScript'
       expect(db.database.books.length).to.equal 1
 
+    it "should return the item save with new line char", ->
+      item = db.save 'books', title: 'Beyond the line: \r\n The Good Way'
+      expect(item.title).to.equal 'Beyond the line: \r\n The Good Way'
+
   describe "Check findOne, find, update and remove methods", ->
     db = new DB './mochaTest.json'
     user =
@@ -151,6 +155,18 @@ describe "JSONdb module", ->
     it "should not remove an item that not exist", ->
       item = db.remove 'users', '12345'
       expect(item).to.equal false
+
+    it "should save an item with newline char", ->
+      user =
+        username: 'martinfowler'
+        name: 'Martin'
+        blog: 'martinfowler.com'
+        source: 'twitter'
+        description: 'Programmer, Loud Mouth. \r\n ThoughtWorker'
+      item = db.save 'users', user
+      result = db.findOne 'users', username: 'martinfowler'
+      expect(result.name).to.equal 'Martin'
+      expect(result.description).to.equal 'Programmer, Loud Mouth. \r\n ThoughtWorker'
 
     it "should clear the database file", ->
       do db.clear
