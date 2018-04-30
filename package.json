@@ -25,6 +25,6 @@
     "gulp-mocha": "^1.1.0"
   },
   "dependencies": {
-    "coffee-script": "^1.8.0"
+    "coffeescript": "^1.8.0"
   }
 }
